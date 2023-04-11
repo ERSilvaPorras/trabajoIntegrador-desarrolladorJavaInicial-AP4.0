@@ -2,6 +2,8 @@ package com.ap;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,9 @@ public class Main
         pointsOfPredictionFile(resultsFile, predictionsFile);
         pointsOfPredictionFile(resultsFile, predictions2File);
         pointsOfPredictionFile(resultsFile, predictions3File);
+
+        //getConnection();
+        
     }
 
     public static void pointsOfPredictionFile(String resultsFile, String predictionsFile) throws Exception {
@@ -68,5 +73,17 @@ public class Main
             totalPoints += prediction.points();
         }
         System.out.println("Puntos: " + totalPoints);;
+    }
+
+    public static void getConnection() {
+        try (Connection conn = ConnectionJDBC.getConnection()) {
+            if (conn != null) {
+                System.out.println("Conexión exitosa");
+            } else {
+                System.out.println("Conexión fallida");
+            }
+        } catch (SQLException e) {
+            System.out.println("Ocurrio un error en la conexion.");
+        }
     }
 }
